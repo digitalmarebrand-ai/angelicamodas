@@ -608,6 +608,61 @@ body {
 
 @media (max-width: 900px) { .sprint-board { grid-template-columns: 1fr 1fr; } .sprint-view { padding: 20px 16px 48px; } }
 @media (max-width: 500px) { .sprint-board { grid-template-columns: 1fr; } }
+
+/* MODAL DURAÇÃO */
+#sp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sp-modal {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 36px 32px 28px;
+  width: 360px;
+  text-align: center;
+}
+.sp-modal-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+.sp-modal-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+.sp-modal-opts {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.sp-dur-btn {
+  background: var(--surface2);
+  border: 2px solid var(--border2);
+  border-radius: 10px;
+  padding: 20px 28px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: all 0.15s;
+  min-width: 130px;
+}
+.sp-dur-btn:hover { border-color: var(--teal); background: rgba(0,168,150,0.08); }
+.sp-dur-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 40px; color: var(--teal); line-height: 1; }
+.sp-dur-lbl { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+.sp-dur-desc { font-size: 12px; color: var(--muted2); margin-top: 6px; }
+.sp-modal-cancel { background: none; border: none; color: var(--muted); font-size: 13px; cursor: pointer; padding: 4px 14px; transition: color 0.12s; }
+.sp-modal-cancel:hover { color: var(--text); }
 </style>
 </head>
 <body>
@@ -1510,12 +1565,21 @@ function spSaveTask(col) {
 }
 
 function spNew() {
+  document.getElementById('sp-modal-overlay').style.display = 'flex';
+}
+
+function spModalClose() {
+  document.getElementById('sp-modal-overlay').style.display = 'none';
+}
+
+function spModalCreate(days) {
+  spModalClose();
   const d = spBootstrap();
   const last = d.list[d.list.length - 1];
   const lastEnd = new Date(last.fim + 'T12:00:00');
   const ns = new Date(lastEnd); ns.setDate(ns.getDate() + 1);
-  const ne = new Date(ns); ne.setDate(ne.getDate() + 13);
-  d.list.push({ id:Date.now(), nome:'Sprint '+(d.list.length+1), inicio:spDateStr(ns), fim:spDateStr(ne), objetivo:'', tasks:[] });
+  const ne = new Date(ns); ne.setDate(ne.getDate() + (days - 1));
+  d.list.push({ id:Date.now(), nome:'Sprint '+(d.list.length+1), inicio:spDateStr(ns), fim:spDateStr(ne), objetivo:'', tasks:[], duracao: days });
   d.idx = d.list.length - 1;
   spSave(d); spRender();
 }
@@ -1538,5 +1602,26 @@ function switchView(view) {
   if (view === 'sprint') spRender();
 }
 </script>
+
+<!-- MODAL DURAÇÃO DA SPRINT -->
+<div id="sp-modal-overlay" style="display:none" onclick="spModalClose()">
+  <div class="sp-modal" onclick="event.stopPropagation()">
+    <div class="sp-modal-title">Nova Sprint</div>
+    <div class="sp-modal-sub">Escolha a duração desta sprint</div>
+    <div class="sp-modal-opts">
+      <button class="sp-dur-btn" onclick="spModalCreate(7)">
+        <span class="sp-dur-num">7</span>
+        <span class="sp-dur-lbl">dias</span>
+        <span class="sp-dur-desc">Sprint semanal</span>
+      </button>
+      <button class="sp-dur-btn" onclick="spModalCreate(15)">
+        <span class="sp-dur-num">15</span>
+        <span class="sp-dur-lbl">dias</span>
+        <span class="sp-dur-desc">Sprint quinzenal</span>
+      </button>
+    </div>
+    <button class="sp-modal-cancel" onclick="spModalClose()">Cancelar</button>
+  </div>
+</div>
 </body>
 </html>
