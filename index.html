@@ -530,6 +530,22 @@ body {
   transition: box-shadow 0.15s, border-color 0.15s;
 }
 .sp-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-color: var(--border2); }
+.sp-card.impedido { border-left: 3px solid var(--red); background: rgba(232,40,74,0.04); }
+.sp-imp-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.07em;
+  color: var(--red);
+  background: rgba(232,40,74,0.12);
+  border: 1px solid rgba(232,40,74,0.3);
+  border-radius: 3px;
+  padding: 2px 7px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.sp-btn.imp { color: var(--muted2); }
+.sp-btn.imp:hover { color: var(--red); border-color: rgba(232,40,74,0.4); background: rgba(232,40,74,0.05); }
+.sp-btn.imp.active { color: var(--red); border-color: rgba(232,40,74,0.5); background: rgba(232,40,74,0.1); }
 .sp-card-head { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
 .sp-prio-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
 .prio-alta .sp-prio-dot { background: var(--red); }
@@ -1476,7 +1492,7 @@ function spRender() {
 
 function spCardEl(task) {
   const div = document.createElement('div');
-  div.className = 'sp-card prio-' + task.prioridade;
+  div.className = 'sp-card prio-' + task.prioridade + (task.impedido ? ' impedido' : '');
   const si = SP_COLS.indexOf(task.status);
   const prioLabel = { alta:'↑ Alta', media:'→ Média', baixa:'↓ Baixa' }[task.prioridade] || '';
   const typeClass = task.tipo === 'rotina' ? 'spt-rotina' : 'spt-sprint';
@@ -1485,6 +1501,7 @@ function spCardEl(task) {
     <div class="sp-card-head">
       <div class="sp-prio-dot"></div>
       <div class="sp-title">${spEsc(task.titulo)}</div>
+      ${task.impedido ? '<span class="sp-imp-badge">⚠ IMPEDIMENTO</span>' : ''}
     </div>
     <div class="sp-meta">
       <span class="sp-type ${typeClass}">${typeLabel}</span>
@@ -1494,6 +1511,7 @@ function spCardEl(task) {
     <div class="sp-actions">
       ${si > 0 ? `<button class="sp-btn" onclick="spMove(${task.id},'${SP_COLS[si-1]}')">← Voltar</button>` : ''}
       ${si < SP_COLS.length-1 ? `<button class="sp-btn fwd" onclick="spMove(${task.id},'${SP_COLS[si+1]}')">Avançar →</button>` : ''}
+      <button class="sp-btn imp${task.impedido ? ' active' : ''}" onclick="spToggleImpedimento(${task.id})" title="Marcar como impedimento">⚑</button>
       <button class="sp-btn del" onclick="spDelete(${task.id})">✕</button>
     </div>`;
   return div;
@@ -1512,6 +1530,12 @@ function spDelete(id) {
   const d = spBootstrap();
   d.list[d.idx].tasks = d.list[d.idx].tasks.filter(x => x.id != id);
   spSave(d); spRender();
+}
+
+function spToggleImpedimento(id) {
+  const d = spBootstrap();
+  const t = d.list[d.idx].tasks.find(x => x.id == id);
+  if (t) { t.impedido = !t.impedido; spSave(d); spRender(); }
 }
 
 function spSaveObjective() {
