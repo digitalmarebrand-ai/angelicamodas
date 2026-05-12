@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checklist Operacional TikTok Shop | EXP Digital</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --bg: #f7f5f0;
+  --surface: #ffffff;
+  --surface2: #f0ede6;
+  --border: #e2ddd6;
+  --border2: #d0cac0;
+  --text: #1a1814;
+  --muted: #8a8278;
+  --muted2: #b5b0a8;
+  --red: #e8284a;
+  --teal: #00a896;
+  --yellow: #f5a623;
+  --blue: #2b7fff;
+  --purple: #7c3aed;
+  --rotina: #00a896;
+  --demanda: #f5a623;
+  --done-bg: #f0faf8;
+  --done-border: #b3e8e0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.header {
+  background: var(--text);
+  color: var(--bg);
+  padding: 28px 40px 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 24px;
+}
+.header-left {}
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--red);
+  color: white;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  padding: 3px 10px;
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+.header-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: white;
+}
+.header-title span { color: #fe2c55; }
+.header-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: #888;
+  letter-spacing: 0.06em;
+  margin-top: 6px;
+}
+.header-right {
+  text-align: right;
+}
+.header-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+/* LEGEND TYPES */
+.type-legend {
+  display: flex;
+  gap: 8px;
+}
+.type-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+.badge-rotina { background: rgba(0,168,150,0.18); color: var(--rotina); border: 1px solid rgba(0,168,150,0.3); }
+.badge-demanda { background: rgba(245,166,35,0.18); color: var(--demanda); border: 1px solid rgba(245,166,35,0.3); }
+
+/* CONTROLS BAR */
+.controls {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.filter-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+}
+.filter-group { display: flex; gap: 6px; }
+.filter-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.filter-btn:hover { background: var(--surface2); color: var(--text); }
+.filter-btn.active-rotina { background: rgba(0,168,150,0.12); border-color: rgba(0,168,150,0.4); color: var(--rotina); }
+.filter-btn.active-demanda { background: rgba(245,166,35,0.12); border-color: rgba(245,166,35,0.4); color: var(--demanda); }
+.filter-btn.active-all { background: var(--text); border-color: var(--text); color: white; }
+
+.controls-right { margin-left: auto; display: flex; gap: 8px; }
+.btn-small {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border2);
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-small:hover { color: var(--text); border-color: var(--border2); background: var(--surface2); }
+
+/* PROGRESS */
+.progress-bar-wrap {
+  background: var(--surface);
+  padding: 14px 40px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.progress-track {
+  flex: 1;
+  background: var(--surface2);
+  border-radius: 4px;
+  height: 5px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--rotina);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+.progress-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.progress-count {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--rotina);
+  white-space: nowrap;
+  min-width: 48px;
+  text-align: right;
+}
+
+/* MAIN */
+.main { padding: 28px 40px 60px; max-width: 1100px; }
+
+/* SECTION */
+.section { margin-bottom: 32px; }
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border);
+}
+.section-icon { font-size: 16px; }
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+.section-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted2);
+  margin-left: auto;
+}
+
+/* CHECKLIST TABLE */
+.cl-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.cl-table thead tr {
+  background: var(--surface2);
+}
+.cl-table th {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-weight: 500;
+}
+.cl-table th.col-check { width: 36px; }
+.cl-table th.col-type { width: 100px; }
+.cl-table th.col-freq { width: 130px; }
+.cl-table th.col-resp { width: 130px; }
+.cl-table th.col-data { width: 120px; }
+
+.cl-row {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.12s;
+  cursor: pointer;
+}
+.cl-row:last-child { border-bottom: none; }
+.cl-row:hover { background: #faf8f4; }
+.cl-row.done { background: var(--done-bg); }
+.cl-row.done .task-text { text-decoration: line-through; color: var(--muted2); }
+.cl-row.hidden { display: none; }
+
+.cl-table td {
+  padding: 11px 14px;
+  vertical-align: middle;
+}
+
+/* CHECKBOX */
+.check-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.check-box {
+  width: 18px; height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s;
+  background: white;
+}
+.cl-row.done .check-box {
+  background: var(--rotina);
+  border-color: var(--rotina);
+}
+.check-mark { color: white; font-size: 10px; display: none; font-weight: 700; }
+.cl-row.done .check-mark { display: block; }
+
+/* TASK TEXT */
+.task-text { font-size: 13.5px; line-height: 1.5; }
+.task-note {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* TYPE CHIP */
+.type-chip {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  padding: 3px 9px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.chip-rotina { background: rgba(0,168,150,0.1); color: var(--rotina); }
+.chip-demanda { background: rgba(245,166,35,0.1); color: var(--demanda); }
+
+/* FREQ */
+.freq-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.freq-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.freq-daily .freq-dot { background: var(--red); }
+.freq-weekly .freq-dot { background: var(--blue); }
+.freq-biweekly .freq-dot { background: var(--purple); }
+.freq-monthly .freq-dot { background: var(--yellow); }
+.freq-ondemand .freq-dot { background: var(--muted2); }
+
+/* RESPONSIBLE SELECT */
+.resp-select {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  padding: 4px 8px;
+  cursor: pointer;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+.resp-select:focus { border-color: var(--rotina); }
+.resp-select.assigned-jorge { border-color: rgba(0,168,150,0.5); color: var(--teal); background: rgba(0,168,150,0.06); }
+.resp-select.assigned-diego { border-color: rgba(43,127,255,0.5); color: var(--blue); background: rgba(43,127,255,0.06); }
+.resp-select.assigned-gi { border-color: rgba(245,166,35,0.5); color: var(--demanda); background: rgba(245,166,35,0.06); }
+.resp-select.assigned-angelica { border-color: rgba(124,58,237,0.5); color: var(--purple); background: rgba(124,58,237,0.06); }
+
+/* DATE INPUT */
+.date-input {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  padding: 4px 8px;
+  cursor: pointer;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+.date-input:focus { border-color: var(--rotina); }
+
+@media (max-width: 768px) {
+  .header { padding: 20px 16px 18px; grid-template-columns: 1fr; }
+  .controls { padding: 12px 16px; }
+  .progress-bar-wrap { padding: 12px 16px; }
+  .main { padding: 20px 16px 48px; }
+  .cl-table th.col-data, .cl-table td:nth-child(6) { display: none; }
+}
+
+/* ===================== VIEW TABS ===================== */
+.view-tabs {
+  background: var(--text);
+  display: flex;
+  padding: 0 40px;
+  gap: 0;
+}
+.view-tab {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  padding: 13px 24px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.view-tab:hover { color: #ccc; }
+.view-tab.active { color: white; border-bottom-color: var(--teal); }
+
+/* ===================== SPRINT VIEW ===================== */
+.sprint-view { padding: 28px 40px 60px; }
+
+.sprint-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.sp-num-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 3px;
+}
+.sp-name-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+.sp-dates-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+.sp-progress-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--teal);
+  background: rgba(0,168,150,0.1);
+  border: 1px solid rgba(0,168,150,0.25);
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+.sp-nav-group {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+.btn-sp-nav {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  padding: 7px 14px;
+  border-radius: 4px;
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-sp-nav:hover { background: var(--surface2); color: var(--text); }
+.btn-sp-nav.primary { background: var(--teal); border-color: var(--teal); color: white; }
+.btn-sp-nav.primary:hover { background: #008f7e; }
+
+/* OBJECTIVE */
+.objective-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--teal);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+.objective-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--teal);
+  margin-bottom: 8px;
+}
+.objective-inp {
+  width: 100%;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  background: none;
+  border: none;
+  outline: none;
+  resize: none;
+  line-height: 1.5;
+}
+.objective-inp::placeholder { color: var(--muted2); font-weight: 400; font-style: italic; }
+
+/* BOARD */
+.sprint-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+.board-col {
+  background: var(--surface2);
+  border-radius: 10px;
+  padding: 12px;
+  min-height: 300px;
+}
+.bc-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid var(--border);
+}
+.bc-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.bc-label { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.06em; }
+.bc-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 2px 8px;
+  margin-left: auto;
+}
+
+/* TASK CARD */
+.sp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 11px 12px;
+  margin-bottom: 8px;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.sp-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-color: var(--border2); }
+.sp-card-head { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
+.sp-prio-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.prio-alta .sp-prio-dot { background: var(--red); }
+.prio-media .sp-prio-dot { background: var(--yellow); }
+.prio-baixa .sp-prio-dot { background: var(--blue); }
+.sp-title { font-size: 13px; line-height: 1.45; color: var(--text); flex: 1; }
+.sp-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.sp-type {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+.spt-rotina { background: rgba(0,168,150,0.1); color: var(--rotina); }
+.spt-sprint { background: rgba(124,58,237,0.1); color: var(--purple); }
+.sp-prio-lbl { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted2); }
+.sp-resp { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-left: auto; }
+.sp-actions { display: flex; gap: 4px; }
+.sp-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 3px;
+  border: 1px solid var(--border2);
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.sp-btn:hover { background: var(--surface2); color: var(--text); }
+.sp-btn.fwd { background: rgba(0,168,150,0.08); border-color: rgba(0,168,150,0.3); color: var(--teal); }
+.sp-btn.fwd:hover { background: rgba(0,168,150,0.16); }
+.sp-btn.del { margin-left: auto; }
+.sp-btn.del:hover { color: var(--red); border-color: rgba(232,40,74,0.4); background: rgba(232,40,74,0.05); }
+
+/* ADD TASK */
+.add-sp-btn {
+  width: 100%;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px dashed var(--border2);
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-top: 4px;
+}
+.add-sp-btn:hover { border-color: var(--teal); color: var(--teal); background: rgba(0,168,150,0.05); }
+.add-sp-form {
+  background: var(--surface);
+  border: 1px solid rgba(0,168,150,0.5);
+  border-radius: 7px;
+  padding: 12px;
+  margin-top: 6px;
+}
+.add-sp-form input, .add-sp-form select {
+  width: 100%;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 6px 9px;
+  outline: none;
+  margin-bottom: 6px;
+}
+.add-sp-form input:focus, .add-sp-form select:focus { border-color: var(--teal); }
+.add-sp-row { display: flex; gap: 6px; }
+.btn-sp-save { flex: 1; font-family: 'DM Mono', monospace; font-size: 11px; padding: 7px; border-radius: 4px; border: none; background: var(--teal); color: white; cursor: pointer; }
+.btn-sp-cancel { font-family: 'DM Mono', monospace; font-size: 11px; padding: 7px 12px; border-radius: 4px; border: 1px solid var(--border2); background: none; color: var(--muted); cursor: pointer; }
+.board-empty-msg { font-size: 12px; color: var(--muted2); text-align: center; padding: 20px 8px; font-style: italic; }
+
+@media (max-width: 900px) { .sprint-board { grid-template-columns: 1fr 1fr; } .sprint-view { padding: 20px 16px 48px; } }
+@media (max-width: 500px) { .sprint-board { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-badge">EXP DIGITAL · TIKTOK SHOP</div>
+    <h1 class="header-title">Checklist<br><span>Operacional</span></h1>
+    <p class="header-sub">ROTINA SEMANAL + DEMANDAS PRIORIZADAS · VERSÃO 1.0</p>
+  </div>
+  <div class="header-right">
+    <div class="header-date" id="header-date"></div>
+    <div class="type-legend">
+      <span class="type-badge badge-rotina">ROTINA</span>
+      <span class="type-badge badge-demanda">DEMANDA</span>
+    </div>
+  </div>
+</div>
+
+<!-- VIEW TABS -->
+<div class="view-tabs">
+  <button class="view-tab active" id="tab-checklist" onclick="switchView('checklist')">✓ Checklist</button>
+  <button class="view-tab" id="tab-sprint" onclick="switchView('sprint')">⚡ Sprints</button>
+</div>
+
+<div id="view-checklist">
+
+<!-- CONTROLS -->
+<div class="controls">
+  <span class="filter-label">FILTRAR:</span>
+  <div class="filter-group">
+    <button class="filter-btn active-all" onclick="filter('all',this)">Tudo</button>
+    <button class="filter-btn" onclick="filter('rotina',this)">Só Rotina</button>
+    <button class="filter-btn" onclick="filter('demanda',this)">Só Demanda</button>
+  </div>
+  <div class="controls-right">
+    <button class="btn-small" onclick="resetAll()">↺ Limpar tudo</button>
+    <button class="btn-small" onclick="printPage()">🖨 Imprimir</button>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-bar-wrap">
+  <span class="progress-label">CONCLUÍDAS</span>
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+  </div>
+  <span class="progress-count" id="progress-count">0 / 0</span>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ======= PRODUTOS & ANÚNCIOS ======= -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">PRODUTOS &amp; ANÚNCIOS</span>
+      <span class="section-count" id="count-s1"></span>
+    </div>
+    <table class="cl-table">
+      <thead>
+        <tr>
+          <th class="col-check"></th>
+          <th>Tarefa</th>
+          <th class="col-type">Tipo</th>
+          <th class="col-freq">Frequência</th>
+          <th class="col-resp">Responsável</th>
+          <th class="col-data">Data / Prazo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Revisar títulos dos top 10 produtos ativos</div><div class="task-note">Verificar se está entre 25–150 chars, sem linguagem caça-clique</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Toda segunda-feira</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Atualizar estoque no Bling e sincronizar com TikTok Shop</div><div class="task-note">Evitar oversell — prioridade especialmente pós-live e pós-vídeo viral</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-daily"><div class="freq-dot"></div>Diário · manhã</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Verificar imagens dos produtos publicados na semana</div><div class="task-note">Proporção 1:1, mín. 600×600px, sem marca d'água, máx. 9 fotos por SKU</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Toda quarta-feira</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Verificar precificação dos top produtos vs. site e WhatsApp</div><div class="task-note">Preço TikTok Shop nunca pode ser maior do que nos outros canais</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Seg e quinta-feira</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Cadastrar novos produtos com atributos, variações e tabela de medidas</div><div class="task-note">Tabela de medidas é obrigatória para moda — não publicar sem ela</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-ondemand"><div class="freq-dot"></div>Conforme necessidade</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Atualizar descrição de produtos com baixa conversão</div><div class="task-note">Mínimo 500 chars, 3–5 benefícios claros, sem texto em CAPS</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-ondemand"><div class="freq-dot"></div>Quando identificado</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ======= PEDIDOS & LOGÍSTICA ======= -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🚚</span>
+      <span class="section-title">PEDIDOS &amp; LOGÍSTICA</span>
+      <span class="section-count" id="count-s2"></span>
+    </div>
+    <table class="cl-table">
+      <thead><tr><th class="col-check"></th><th>Tarefa</th><th class="col-type">Tipo</th><th class="col-freq">Frequência</th><th class="col-resp">Responsável</th><th class="col-data">Data / Prazo</th></tr></thead>
+      <tbody>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Processar todos os pedidos novos e confirmar envio</div><div class="task-note">Prazo máximo: 3 dias úteis para deixar "pronto para envio"</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-daily"><div class="freq-dot"></div>Diário · até 10h</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Emitir NF-e via Bling e anexar ao pacote de envio</div><div class="task-note">Obrigatório por pedido — sem NF-e, não despachar</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-daily"><div class="freq-dot"></div>Diário · junto c/ pedidos</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Monitorar LDR (atraso no envio) e SFCR (cancelamento)</div><div class="task-note">LDR ≤8% · SFCR ≤5% · SFRR ≤1,5% — se passar, prioridade máxima</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Seg e quinta-feira</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Processar solicitações de cancelamento e devolução abertas</div><div class="task-note">Prazo: 48h para cancelamento · 3 dias úteis para reembolso pós-devolução</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-daily"><div class="freq-dot"></div>Diário · até 12h</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ======= ATENDIMENTO ======= -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">💬</span>
+      <span class="section-title">ATENDIMENTO &amp; PÓS-VENDA</span>
+      <span class="section-count" id="count-s3"></span>
+    </div>
+    <table class="cl-table">
+      <thead><tr><th class="col-check"></th><th>Tarefa</th><th class="col-type">Tipo</th><th class="col-freq">Frequência</th><th class="col-resp">Responsável</th><th class="col-data">Data / Prazo</th></tr></thead>
+      <tbody>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Responder comentários e dúvidas nas páginas de produto</div><div class="task-note">Respostas rápidas aumentam conversão — não deixar mais de 24h sem resposta</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-daily"><div class="freq-dot"></div>Diário · até 14h</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Checar avaliações novas e sinalizar reclamações recorrentes</div><div class="task-note">Padrão de reclamação = problema de produto ou anúncio, não de atendimento</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Seg, qua e sexta</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Compilar motivos de devolução da semana e reportar para Jorge</div><div class="task-note">Dado que alimenta a decisão de ajuste de produto, foto ou descrição</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>1× por semana (sexta)</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ======= CONTEÚDO & LIVE ======= -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🎬</span>
+      <span class="section-title">CONTEÚDO &amp; LIVE SHOP</span>
+      <span class="section-count" id="count-s4"></span>
+    </div>
+    <table class="cl-table">
+      <thead><tr><th class="col-check"></th><th>Tarefa</th><th class="col-type">Tipo</th><th class="col-freq">Frequência</th><th class="col-resp">Responsável</th><th class="col-data">Data / Prazo</th></tr></thead>
+      <tbody>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Publicar mínimo 2 vídeos curtos com link de produto (shoppable)</div><div class="task-note">Pelo menos 50% dos vídeos precisam ter produto linkado — sem link não vende</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-daily"><div class="freq-dot"></div>Diário · antes das 12h</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Executar ao menos 1 Live Shop por semana</div><div class="task-note">Sacola montada, roteiro pronto e oferta relâmpago configurada antes de ligar</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Terça ou quinta · noite</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Montar sacola de produtos da próxima Live com pelo menos 10 itens</div><div class="task-note">Definir produto fixado (pin) e produto com oferta relâmpago</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Véspera da Live</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Analisar métricas da Live: espectadores, GMV e produto mais vendido</div><div class="task-note">Dado essencial para calibrar próxima live — o que funcionou precisa se repetir</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Após cada Live</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Planejar pauta de conteúdo da semana seguinte</div><div class="task-note">Formatos: unboxing, antes/depois, demonstração, depoimento — variar sempre</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>1× por semana (sexta)</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Impulsionar vídeo orgânico de melhor desempenho via GMV Max</div><div class="task-note">Estratégia Slingshot: amplificar o que já está convertendo, não criar do zero</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Toda segunda-feira</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Agendar ao menos 4 Lives no mês com pauta, produtos em destaque e oferta relâmpago</div><div class="task-note">Planejar com antecedência — Lives regulares constroem audiência fiel e aumentam GMV mensal</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-monthly"><div class="freq-dot"></div>1ª semana do mês</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ======= AFILIADOS ======= -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🤝</span>
+      <span class="section-title">PROGRAMA DE AFILIADOS</span>
+      <span class="section-count" id="count-s5"></span>
+    </div>
+    <table class="cl-table">
+      <thead><tr><th class="col-check"></th><th>Tarefa</th><th class="col-type">Tipo</th><th class="col-freq">Frequência</th><th class="col-resp">Responsável</th><th class="col-data">Data / Prazo</th></tr></thead>
+      <tbody>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Verificar solicitações de amostra grátis pendentes e aprovar</div><div class="task-note">Afiliado aprovado com amostra tem 14 dias para publicar o conteúdo</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Seg, qua e sexta</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Monitorar afiliados com conteúdo pendente há mais de 7 dias</div><div class="task-note">Cobrar ou cancelar amostra — afiliado parado trava o estoque de amostra</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Toda quinta-feira</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Identificar top 5 afiliados com maior conversão e propor colaboração direcionada</div><div class="task-note">Foco: afiliados com 10%+ de conversão nos vídeos dos últimos 14 dias</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-biweekly"><div class="freq-dot"></div>1ª e 3ª quinta do mês</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Garantir estoque mínimo de 100 unidades dos produtos com amostra ativa</div><div class="task-note">Sem estoque = sem amostra = sem conteúdo = canal de afiliados paralisa</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Toda segunda-feira</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Avaliar expansão do portfólio de afiliados: recrutar novos criadores alinhados ao nicho de moda</div><div class="task-note">Foco em criadores com audiência feminina 18–35 anos e conteúdo de moda/estilo de vida</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-monthly"><div class="freq-dot"></div>1ª semana do mês</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ======= PROMOÇÕES & CAMPANHAS ======= -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">💰</span>
+      <span class="section-title">PROMOÇÕES &amp; CAMPANHAS</span>
+      <span class="section-count" id="count-s6"></span>
+    </div>
+    <table class="cl-table">
+      <thead><tr><th class="col-check"></th><th>Tarefa</th><th class="col-type">Tipo</th><th class="col-freq">Frequência</th><th class="col-resp">Responsável</th><th class="col-data">Data / Prazo</th></tr></thead>
+      <tbody>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Verificar promoções ativas e vigência (data de expiração)</div><div class="task-note">Promoção vencida sem renovação = produto volta ao preço cheio sem aviso</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Seg e quinta-feira</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Configurar cupom da Live antes de cada transmissão</div><div class="task-note">Cupom exclusivo de Live aumenta conversão em até 3× durante a transmissão</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Antes de cada Live</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Verificar missões ativas na Central de Crescimento</div><div class="task-note">Missões concluídas = recompensas em cupons, crédito de anúncio ou dedução de comissão</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Toda segunda-feira</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Inscrever produtos elegíveis em campanhas da plataforma</div><div class="task-note">Campanhas TikTok Shop = visibilidade paga pela plataforma, não pelo vendedor</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-ondemand"><div class="freq-dot"></div>Quando disponível</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Planejar calendário de promoções do mês seguinte</div><div class="task-note">Incluir datas comemorativas relevantes para moda feminina</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-monthly"><div class="freq-dot"></div>Última sexta do mês</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ======= GOVERNANÇA (JORGE) ======= -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">📊</span>
+      <span class="section-title">GOVERNANÇA — JORGE</span>
+      <span class="section-count" id="count-s7"></span>
+    </div>
+    <table class="cl-table">
+      <thead><tr><th class="col-check"></th><th>Tarefa</th><th class="col-type">Tipo</th><th class="col-freq">Frequência</th><th class="col-resp">Responsável</th><th class="col-data">Data / Prazo</th></tr></thead>
+      <tbody>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Reunião de planejamento semanal com a equipe</div><div class="task-note">Segunda · 30 min · abrir planner, definir compromissos, marcar bloqueados</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Segunda-feira</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Reunião de retrospectiva com a equipe</div><div class="task-note">Sexta · 20 min · mostrar planner, analisar bloqueados, resetar para semana nova</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Sexta-feira</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="rotina" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Revisar KPIs da semana: GMV, pedidos, LDR, SFCR e SFRR</div><div class="task-note">Sem olhar os números, impossível saber o que priorizar</div></td>
+          <td><span class="type-chip chip-rotina">ROTINA</span></td>
+          <td><div class="freq-text freq-weekly"><div class="freq-dot"></div>Seg e quinta-feira</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Análise mensal: curva ABC de produtos, margem real e GMV por canal</div><div class="task-note">Base para decidir o que escalar, o que pausar e onde investir no mês seguinte</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-monthly"><div class="freq-dot"></div>Até dia 5 do mês</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Análise financeira mensal: demonstração de liquidação, comissões pagas e margem real por produto</div><div class="task-note">Comparar margem prevista vs. real — comissão TikTok + frete + taxa de devolução podem distorcer</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-monthly"><div class="freq-dot"></div>Até dia 5 do mês</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Verificar NF de serviço emitida pelo TikTok (comissões do mês)</div><div class="task-note">O TikTok emite NF até dia 4 do mês seguinte — conferir e arquivar para contabilidade</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-monthly"><div class="freq-dot"></div>Até dia 4 do mês</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Reunião de alinhamento mensal com a equipe: resultados, ajustes de estratégia e metas do ciclo seguinte</div><div class="task-note">Mostrar números do mês, celebrar o que funcionou e redefinir prioridades</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-monthly"><div class="freq-dot"></div>Última sexta do mês</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ======= SETUP INICIAL — FASE 1 ======= -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🚀</span>
+      <span class="section-title">SETUP INICIAL — FASE 1</span>
+      <span class="section-count" id="count-s8"></span>
+    </div>
+    <table class="cl-table">
+      <thead><tr><th class="col-check"></th><th>Tarefa</th><th class="col-type">Tipo</th><th class="col-freq">Frequência</th><th class="col-resp">Responsável</th><th class="col-data">Data / Prazo</th></tr></thead>
+      <tbody>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Cadastro aprovado na plataforma via link oficial do programa</div><div class="task-note">CNPJ válido, documentos OK — sem aprovação a loja não fica ativa</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-ondemand"><div class="freq-dot"></div>Dia 1 — pré-abertura</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Ativar Missão de Comissão 0% nos primeiros 60 dias</div><div class="task-note">Central do Vendedor → Crescimento → Começar — prazo limitado, não perder</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-ondemand"><div class="freq-dot"></div>Dia 1 — urgente</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Configurar perfil da loja: logo, nome, tipo de negócio e informações de contato</div><div class="task-note">Perfil completo transmite credibilidade e aumenta taxa de conversão</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-ondemand"><div class="freq-dot"></div>Dia 1–2</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Vincular Conta Oficial do TikTok à loja</div><div class="task-note">Habilita autovenda e sincronização automática de produtos nos vídeos</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-ondemand"><div class="freq-dot"></div>Dia 1</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Conectar integrador ERP (Bling) para emissão de NF-e, gestão de estoque e pedidos</div><div class="task-note">Sem integração, operação fica manual — gargalo imediato em volume</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-ondemand"><div class="freq-dot"></div>Dia 2–3</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Configurar dados bancários e fiscais para recebimento dos repasses</div><div class="task-note">Sem dados corretos o TikTok bloqueia os repasses — conferir antes do primeiro pedido</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-ondemand"><div class="freq-dot"></div>Dia 1</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Aderir ao Programa de Frete Grátis (PIF)</div><div class="task-note">Aumenta conversão e gera tráfego adicional da plataforma — diferencial competitivo</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-ondemand"><div class="freq-dot"></div>Dia 3–5</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Criar subcontas na Central do Vendedor para cada profissional da equipe</div><div class="task-note">Definir permissões por função: gestão, conteúdo, logística — não dar acesso admin a todos</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-ondemand"><div class="freq-dot"></div>Dia 2</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Publicar os primeiros produtos (mínimo 10 SKUs) com imagens, tabela de medidas e descrição completa</div><div class="task-note">Loja com menos de 10 produtos não recebe tráfego orgânico da plataforma</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-ondemand"><div class="freq-dot"></div>Semana 1</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+        <tr class="cl-row" data-type="demanda" onclick="toggleRow(this)">
+          <td class="col-check"><div class="check-wrap"><div class="check-box"><span class="check-mark">✓</span></div></div></td>
+          <td><div class="task-text">Configurar preferências de envio e confirmar transportadora designada (J&amp;T, Correios ou outra)</div><div class="task-note">Testar fluxo completo de etiqueta antes de receber o primeiro pedido</div></td>
+          <td><span class="type-chip chip-demanda">DEMANDA</span></td>
+          <td><div class="freq-text freq-ondemand"><div class="freq-dot"></div>Dia 2–4</div></td>
+          <td onclick="stopProp(event)"><select class="resp-select" onchange="setResp(this)"><option value="">— responsável</option><option selected>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option></select></td>
+          <td onclick="stopProp(event)"><input type="date" class="date-input"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- /main -->
+</div><!-- /view-checklist -->
+
+<!-- SPRINT VIEW -->
+<div id="view-sprint" style="display:none">
+  <div class="sprint-view">
+
+    <div class="sprint-header">
+      <div>
+        <div class="sp-num-label">SPRINT ATUAL</div>
+        <div class="sp-name-text" id="sp-name">Sprint 1</div>
+      </div>
+      <span class="sp-dates-badge" id="sp-dates"></span>
+      <span class="sp-progress-pill" id="sp-progress">0 / 0 tarefas</span>
+      <div class="sp-nav-group">
+        <button class="btn-sp-nav" onclick="spPrev()">← Anterior</button>
+        <button class="btn-sp-nav" onclick="spNext()">Próxima →</button>
+        <button class="btn-sp-nav primary" onclick="spNew()">+ Nova Sprint</button>
+      </div>
+    </div>
+
+    <div class="objective-card">
+      <div class="objective-lbl">🎯 OBJETIVO DA SPRINT</div>
+      <textarea class="objective-inp" id="sp-objetivo" rows="2"
+        placeholder="Ex: Publicar os primeiros 10 produtos, configurar afiliados e realizar a primeira Live Shop até o fim da sprint…"
+        oninput="spSaveObjective()"></textarea>
+    </div>
+
+    <div class="sprint-board">
+      <div class="board-col">
+        <div class="bc-header">
+          <div class="bc-dot" style="background:var(--muted2)"></div>
+          <span class="bc-label" style="color:var(--muted)">BACKLOG</span>
+          <span class="bc-count" id="sp-cnt-backlog">0</span>
+        </div>
+        <div id="sp-col-backlog"></div>
+        <button class="add-sp-btn" onclick="spShowForm('backlog')">+ Adicionar tarefa</button>
+        <div id="sp-form-backlog"></div>
+      </div>
+
+      <div class="board-col">
+        <div class="bc-header">
+          <div class="bc-dot" style="background:var(--blue)"></div>
+          <span class="bc-label" style="color:var(--blue)">A FAZER</span>
+          <span class="bc-count" id="sp-cnt-a_fazer">0</span>
+        </div>
+        <div id="sp-col-a_fazer"></div>
+        <button class="add-sp-btn" onclick="spShowForm('a_fazer')">+ Adicionar tarefa</button>
+        <div id="sp-form-a_fazer"></div>
+      </div>
+
+      <div class="board-col">
+        <div class="bc-header">
+          <div class="bc-dot" style="background:var(--yellow)"></div>
+          <span class="bc-label" style="color:var(--demanda)">EM ANDAMENTO</span>
+          <span class="bc-count" id="sp-cnt-em_andamento">0</span>
+        </div>
+        <div id="sp-col-em_andamento"></div>
+        <button class="add-sp-btn" onclick="spShowForm('em_andamento')">+ Adicionar tarefa</button>
+        <div id="sp-form-em_andamento"></div>
+      </div>
+
+      <div class="board-col">
+        <div class="bc-header">
+          <div class="bc-dot" style="background:var(--teal)"></div>
+          <span class="bc-label" style="color:var(--teal)">CONCLUÍDO</span>
+          <span class="bc-count" id="sp-cnt-concluido">0</span>
+        </div>
+        <div id="sp-col-concluido"></div>
+        <button class="add-sp-btn" onclick="spShowForm('concluido')">+ Adicionar tarefa</button>
+        <div id="sp-form-concluido"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Date
+const now = new Date();
+document.getElementById('header-date').textContent =
+  now.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'}).toUpperCase();
+
+// Toggle row
+function toggleRow(row) {
+  row.classList.toggle('done');
+  updateProgress();
+  saveState();
+}
+function stopProp(e){ e.stopPropagation(); }
+
+// Responsible color
+function setResp(sel) {
+  const val = sel.value.toLowerCase();
+  sel.className = 'resp-select';
+  if (val) sel.classList.add('assigned-' + val);
+  saveState();
+}
+
+// Filter
+let currentFilter = 'all';
+function filter(type, btn) {
+  currentFilter = type;
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.className = 'filter-btn';
+  });
+  btn.classList.add('active-' + type);
+
+  document.querySelectorAll('.cl-row').forEach(row => {
+    if (type === 'all') row.classList.remove('hidden');
+    else if (row.dataset.type === type) row.classList.remove('hidden');
+    else row.classList.add('hidden');
+  });
+  updateProgress();
+}
+
+// Progress
+function updateProgress() {
+  const visible = document.querySelectorAll('.cl-row:not(.hidden)');
+  const done = document.querySelectorAll('.cl-row:not(.hidden).done');
+  const total = visible.length;
+  const pct = total ? Math.round((done.length / total) * 100) : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-count').textContent = done.length + ' / ' + total;
+}
+
+// Section counts
+function updateSectionCounts() {
+  const sections = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+  sections.forEach((sid, si) => {
+    const sec = document.querySelector('.section:nth-child(' + (si+1) + ')');
+    if (!sec) return;
+    const rows = sec.querySelectorAll('.cl-row');
+    const done = sec.querySelectorAll('.cl-row.done');
+    const el = document.getElementById('count-' + sid);
+    if (el) el.textContent = done.length + ' / ' + rows.length + ' concluídas';
+  });
+}
+
+// Save/load
+function saveState() {
+  const rows = document.querySelectorAll('.cl-row');
+  const state = { checks: {}, resps: {}, dates: {} };
+  rows.forEach((row, i) => {
+    state.checks[i] = row.classList.contains('done');
+    const sel = row.querySelector('.resp-select');
+    const dt = row.querySelector('.date-input');
+    if (sel) state.resps[i] = sel.value;
+    if (dt) state.dates[i] = dt.value;
+  });
+  try { localStorage.setItem('cl-rotina-v1', JSON.stringify(state)); } catch(e) {}
+  updateSectionCounts();
+}
+
+function loadState() {
+  try {
+    const state = JSON.parse(localStorage.getItem('cl-rotina-v1') || '{}');
+    if (!state.checks) return;
+    const rows = document.querySelectorAll('.cl-row');
+    rows.forEach((row, i) => {
+      if (state.checks[i]) row.classList.add('done');
+      const sel = row.querySelector('.resp-select');
+      const dt = row.querySelector('.date-input');
+      if (sel && state.resps && state.resps[i]) {
+        sel.value = state.resps[i];
+        setResp(sel);
+      }
+      if (dt && state.dates && state.dates[i]) dt.value = state.dates[i];
+    });
+  } catch(e) {}
+  updateProgress();
+  updateSectionCounts();
+}
+
+function resetAll() {
+  if (!confirm('Limpar todos os checks, responsáveis e datas?')) return;
+  document.querySelectorAll('.cl-row').forEach(r => r.classList.remove('done'));
+  document.querySelectorAll('.resp-select').forEach(s => { s.value = ''; s.className = 'resp-select'; });
+  document.querySelectorAll('.date-input').forEach(d => d.value = '');
+  try { localStorage.removeItem('cl-rotina-v1'); } catch(e) {}
+  updateProgress();
+  updateSectionCounts();
+}
+
+function printPage() { window.print(); }
+
+loadState();
+
+// ====================== SPRINT ENGINE ======================
+const SP_KEY = 'tts-sprint-v1';
+const SP_COLS = ['backlog','a_fazer','em_andamento','concluido'];
+
+function spLoad() {
+  try { return JSON.parse(localStorage.getItem(SP_KEY)) || { list:[], idx:0 }; } catch(e) { return { list:[], idx:0 }; }
+}
+function spSave(d) { try { localStorage.setItem(SP_KEY, JSON.stringify(d)); } catch(e) {} }
+
+function spBootstrap() {
+  let d = spLoad();
+  if (!d.list.length) {
+    const today = new Date();
+    const end = new Date(today); end.setDate(end.getDate() + 13);
+    d.list.push({ id: Date.now(), nome:'Sprint 1', inicio:spDateStr(today), fim:spDateStr(end), objetivo:'', tasks:[] });
+    d.idx = 0;
+    spSave(d);
+  }
+  return d;
+}
+
+function spDateStr(d) { return d.toISOString().split('T')[0]; }
+
+function spFormatRange(a, b) {
+  const fmt = { day:'2-digit', month:'short' };
+  const da = new Date(a+'T12:00:00'), db = new Date(b+'T12:00:00');
+  return da.toLocaleDateString('pt-BR', fmt) + ' – ' + db.toLocaleDateString('pt-BR', { ...fmt, year:'numeric' });
+}
+
+function spRender() {
+  const d = spBootstrap();
+  const sp = d.list[d.idx];
+  document.getElementById('sp-name').textContent = sp.nome;
+  document.getElementById('sp-dates').textContent = spFormatRange(sp.inicio, sp.fim);
+  const done = sp.tasks.filter(t => t.status === 'concluido').length;
+  document.getElementById('sp-progress').textContent = done + ' / ' + sp.tasks.length + ' concluídas';
+  document.getElementById('sp-objetivo').value = sp.objetivo || '';
+
+  SP_COLS.forEach(col => {
+    const tasks = sp.tasks.filter(t => t.status === col);
+    document.getElementById('sp-cnt-' + col).textContent = tasks.length;
+    const el = document.getElementById('sp-col-' + col);
+    el.innerHTML = '';
+    if (!tasks.length) { el.innerHTML = '<div class="board-empty-msg">Vazio</div>'; return; }
+    tasks.forEach(t => el.appendChild(spCardEl(t)));
+  });
+}
+
+function spCardEl(task) {
+  const div = document.createElement('div');
+  div.className = 'sp-card prio-' + task.prioridade;
+  const si = SP_COLS.indexOf(task.status);
+  const prioLabel = { alta:'↑ Alta', media:'→ Média', baixa:'↓ Baixa' }[task.prioridade] || '';
+  const typeClass = task.tipo === 'rotina' ? 'spt-rotina' : 'spt-sprint';
+  const typeLabel = task.tipo === 'rotina' ? 'ROTINA' : 'SPRINT';
+  div.innerHTML = `
+    <div class="sp-card-head">
+      <div class="sp-prio-dot"></div>
+      <div class="sp-title">${spEsc(task.titulo)}</div>
+    </div>
+    <div class="sp-meta">
+      <span class="sp-type ${typeClass}">${typeLabel}</span>
+      <span class="sp-prio-lbl">${prioLabel}</span>
+      ${task.responsavel ? `<span class="sp-resp">${spEsc(task.responsavel)}</span>` : ''}
+    </div>
+    <div class="sp-actions">
+      ${si > 0 ? `<button class="sp-btn" onclick="spMove(${task.id},'${SP_COLS[si-1]}')">← Voltar</button>` : ''}
+      ${si < SP_COLS.length-1 ? `<button class="sp-btn fwd" onclick="spMove(${task.id},'${SP_COLS[si+1]}')">Avançar →</button>` : ''}
+      <button class="sp-btn del" onclick="spDelete(${task.id})">✕</button>
+    </div>`;
+  return div;
+}
+
+function spEsc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function spMove(id, status) {
+  const d = spBootstrap();
+  const t = d.list[d.idx].tasks.find(x => x.id == id);
+  if (t) { t.status = status; spSave(d); spRender(); }
+}
+
+function spDelete(id) {
+  if (!confirm('Remover tarefa?')) return;
+  const d = spBootstrap();
+  d.list[d.idx].tasks = d.list[d.idx].tasks.filter(x => x.id != id);
+  spSave(d); spRender();
+}
+
+function spSaveObjective() {
+  const d = spBootstrap();
+  d.list[d.idx].objetivo = document.getElementById('sp-objetivo').value;
+  spSave(d);
+}
+
+function spShowForm(col) {
+  SP_COLS.forEach(c => { const f = document.getElementById('sp-form-'+c); if(f) f.innerHTML=''; });
+  const f = document.getElementById('sp-form-' + col);
+  if (!f) return;
+  f.innerHTML = `<div class="add-sp-form">
+    <input type="text" id="sp-new-titulo" placeholder="Título da tarefa…" onkeydown="if(event.key==='Enter')spSaveTask('${col}')">
+    <select id="sp-new-tipo">
+      <option value="sprint">Sprint — tarefa nova</option>
+      <option value="rotina">Rotina — recorrente</option>
+    </select>
+    <select id="sp-new-prio">
+      <option value="media">Prioridade: Média</option>
+      <option value="alta">Prioridade: Alta</option>
+      <option value="baixa">Prioridade: Baixa</option>
+    </select>
+    <select id="sp-new-resp">
+      <option value="">— Responsável</option>
+      <option>Jorge</option><option>Diego</option><option>Gi</option><option>Angélica</option>
+    </select>
+    <div class="add-sp-row">
+      <button class="btn-sp-save" onclick="spSaveTask('${col}')">Salvar</button>
+      <button class="btn-sp-cancel" onclick="spHideForm('${col}')">Cancelar</button>
+    </div>
+  </div>`;
+  document.getElementById('sp-new-titulo').focus();
+}
+
+function spHideForm(col) { const f = document.getElementById('sp-form-'+col); if(f) f.innerHTML=''; }
+
+function spSaveTask(col) {
+  const titulo = (document.getElementById('sp-new-titulo').value || '').trim();
+  if (!titulo) return;
+  const d = spBootstrap();
+  d.list[d.idx].tasks.push({
+    id: Date.now(),
+    titulo,
+    tipo: document.getElementById('sp-new-tipo').value,
+    prioridade: document.getElementById('sp-new-prio').value,
+    responsavel: document.getElementById('sp-new-resp').value,
+    status: col
+  });
+  spSave(d); spHideForm(col); spRender();
+}
+
+function spNew() {
+  const d = spBootstrap();
+  const last = d.list[d.list.length - 1];
+  const lastEnd = new Date(last.fim + 'T12:00:00');
+  const ns = new Date(lastEnd); ns.setDate(ns.getDate() + 1);
+  const ne = new Date(ns); ne.setDate(ne.getDate() + 13);
+  d.list.push({ id:Date.now(), nome:'Sprint '+(d.list.length+1), inicio:spDateStr(ns), fim:spDateStr(ne), objetivo:'', tasks:[] });
+  d.idx = d.list.length - 1;
+  spSave(d); spRender();
+}
+
+function spPrev() {
+  const d = spBootstrap();
+  if (d.idx > 0) { d.idx--; spSave(d); spRender(); }
+}
+
+function spNext() {
+  const d = spBootstrap();
+  if (d.idx < d.list.length - 1) { d.idx++; spSave(d); spRender(); }
+}
+
+function switchView(view) {
+  document.getElementById('view-checklist').style.display = view === 'checklist' ? 'block' : 'none';
+  document.getElementById('view-sprint').style.display = view === 'sprint' ? 'block' : 'none';
+  document.querySelectorAll('.view-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + view).classList.add('active');
+  if (view === 'sprint') spRender();
+}
+</script>
+</body>
+</html>
